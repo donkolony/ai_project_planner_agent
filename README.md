@@ -42,11 +42,13 @@ Structured JSON Output → Dashboard Rendering
     -   Architecture display
     -   Weekly roadmap visualization
     -   Task breakdown board
+
 2.  Backend (FastAPI)
     -   Prompt orchestration
     -   AI response validation
     -   JSON schema enforcement
     -   REST API endpoints
+
 3.  AI Layer
     -   Architecture generator
     -   Task breakdown generator
@@ -108,10 +110,6 @@ requirements.txt uvicorn main:app --reload
 ### Frontend
 
 cd frontend npm install npm start
-
-### Environment Variables (.env)
-
-OPENAI_API_KEY=your_key AZURE_ENDPOINT=your_endpoint
 
 ------------------------------------------------------------------------
 
