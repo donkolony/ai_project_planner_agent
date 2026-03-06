@@ -3,8 +3,8 @@ from functools import lru_cache
 
 
 class Settings(BaseSettings):
-    app_name: str
-    environment: str
+    app_name: str = "AI Project Planner Agent"
+    environment: str= "development"
 
     azure_openai_endpoint: str | None = None
     azure_openai_api_key: str | None = None
