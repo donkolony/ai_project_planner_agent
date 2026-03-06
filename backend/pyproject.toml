@@ -50,3 +50,8 @@ dependencies = [
     "watchfiles==1.1.1",
     "websockets==16.0",
 ]
+
+[dependency-groups]
+dev = [
+    "black>=26.3.0",
+]
