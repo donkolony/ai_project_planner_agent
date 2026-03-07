@@ -26,36 +26,48 @@ Project Name: {project_name}
 Description: {description} 
 Tech Stack: {", ".join(tech_stack)} 
 
-Please return in the following format:
+Return in this exact format:
 
-Summary: <short project summary>
+Summary: <short project summary, 1-2 sentences>
 Phases:
 1. <phase 1>
 2. <phase 2>
 3. <phase 3>
 ...
+
+Do not include any markdown symbols like ** or _.
 """
-        # Call Azure OpenAI
+        # Call AzureOpenAI chat endpoint
         response = self.client.chat.completions.create(
             model=self.deployment_name,
             messages=[
                 {"role": "system", "content": "You are a senior software architect."},
                 {"role": "user", "content": prompt},
             ],
-            max_tokens=1000,
+            # max_tokens=1000,
             temperature=0.7,
         )
 
-        # Extracr AI output
+        
         ai_output = response.choices[0].message.content
 
-        # Extract summary using regex
-        summary_match = re.search(r"Summary:\s*(.*)", ai_output)
-        summary = (
-            summary_match.group(1).strip() if summary_match else "No summary generated"
-        )
+        """
+        .+? -> stops at the first line break
+        (?:\n|$) -> stops at a newline or end of string
+        re.IGNORECASE -> matches summary regardless of capitilzation
+        .strip() -> removes extra spaces and symbols at the edges
+        """
 
-        # Extract phases using regex
+        # Extract summary
+        summary_match = re.search(r"Summary:\s*(.+?)(?:\n|$)", ai_output, re.IGNORECASE)
+        if summary_match:
+            summary = summary_match.group(1).strip()
+        else:
+            # fallback to firsts line if no excplicit Summary
+            summary = ai_output.split("\n")[0].strip()
+        summary = re.sub(r"[*_`]", "", summary)
+
+        # Extract phases
         phases_matches = re.findall(r"\d+\.\s*(.*)", ai_output)
         phases = [phase.strip() for phase in phases_matches] if phases_matches else []
 
