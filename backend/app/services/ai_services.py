@@ -1,3 +1,5 @@
+import re
+
 from app.core.config import get_settings
 from openai import AzureOpenAI
 
@@ -16,16 +18,20 @@ class AIPlanner:
 
     def generate_plan(self, project_name: str, description: str, tech_stack: list[str]):
         prompt = f""" 
-        Create a high-level software project plan. 
+        Your are a senior software architect. Generate a high-level software project plan. 
         
         Project Name: {project_name} 
         Description: {description} 
         Tech Stack: {", ".join(tech_stack)} 
         
-        Provide: 
-        1. A short project summary 
-        2. A list of development phases 
-        
+        Please return in the following format:
+
+        Summary: <short project summary>
+        Phases:
+        1. <phase 1>
+        2. <phase 2>
+        3. <phase 3>
+        ...
         """
 
         response = self.client.chat.completion.create(
@@ -38,11 +44,14 @@ class AIPlanner:
 
         ai_output = response.choices[0].message.content
 
-        return {
-            "summary": ai_output,
-            "phases": [
-                "Phase 1: Setup",
-                "Phase 2: Development",
-                "Phase 3: Deployment",
-            ],
-        }
+        # Extract summary
+        summary_match = re.search(r"Summary:\s*(.*)", ai_output)
+        summary = (
+            summary_match.group(1).strip() if summary_match else "No summary generated"
+        )
+
+        # Extract phases
+        phases_matches = re.findall(r"\d+\.\s*(.*)", ai_output)
+        phases = [phase.strip() for phase in phases_matches] if phases_matches else []
+
+        return {"summary": summary, "phases": phases}
