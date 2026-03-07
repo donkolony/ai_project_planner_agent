@@ -205,3 +205,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+_README.md
+about_hackathon.md
+ai_project_planner_roadmap.md
+task_breakdown_prompt.md
+debug.py
