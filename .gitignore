@@ -206,6 +206,11 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
+# database files
+*.db
+*.sqlite
+*.sqlite3
+
 # Temp files
 _README.md
 about_hackathon.md
