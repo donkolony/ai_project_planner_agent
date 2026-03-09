@@ -11,23 +11,27 @@ from app.services.ai_services import AIPlanner
 # Test Database
 # -----------------------------
 
-TEST_DATABASE_URL = "sqlite://"
+TEST_DATABASE_URL = "sqlite:///./test.db"
 
 engine = create_engine(
     TEST_DATABASE_URL,
     connect_args={"check_same_thread": False},
 )
 
-
+# Create tables before tests
 @pytest.fixture(name="session")
 def session_fixture():
     SQLModel.metadata.create_all(engine)
+
     with Session(engine) as session:
         yield session
 
+    SQLModel.metadata.drop_all(engine)
 
+
+# Override dependency
 @pytest.fixture(name="client")
-def client_fixture(session):
+def client_fixture(session: Session):
 
     def get_session_override():
         return session
