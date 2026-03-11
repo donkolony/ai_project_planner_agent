@@ -10,7 +10,7 @@ def test_get_plan_by_id(get_test_session):
     session = get_test_session
 
     plan = PlanDB(
-        id=uuid4(),
+        id=str(uuid4()),
         project_name="Test Project",
         description="Test Description",
         tech_stack=json.dumps(["Python", "FastAPI"]),

@@ -12,7 +12,7 @@ def test_list_plans(get_test_session):
     # Create multiple plans
     plans = [
         PlanDB(
-            id=uuid4(),
+            id=str(uuid4()),
             project_name=f"Project {i}",
             description="Desc",
             tech_stack=json.dumps(["Python"]),
