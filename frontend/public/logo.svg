@@ -1,0 +1,23 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagon/Network hub -->
+  <g transform="translate(100, 100)">
+    <!-- Center hexagon -->
+    <polygon points="0,-15 13,-7.5 13,7.5 0,15 -13,7.5 -13,-7.5" fill="#1E88E5" stroke="#FFFFFF" stroke-width="2"/>
+    
+    <!-- Surrounding nodes -->
+    <circle cx="0" cy="-28" r="5" fill="#00BCD4" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="24" cy="-14" r="5" fill="#00BCD4" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="24" cy="14" r="5" fill="#00BCD4" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="0" cy="28" r="5" fill="#00BCD4" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="-24" cy="14" r="5" fill="#00BCD4" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="-24" cy="-14" r="5" fill="#00BCD4" stroke="#FFFFFF" stroke-width="1.5"/>
+    
+    <!-- Connection lines -->
+    <line x1="0" y1="-15" x2="0" y2="-28" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+    <line x1="13" y1="-7.5" x2="24" y2="-14" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+    <line x1="13" y1="7.5" x2="24" y2="14" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+    <line x1="0" y1="15" x2="0" y2="28" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+    <line x1="-13" y1="7.5" x2="-24" y2="14" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+    <line x1="-13" y1="-7.5" x2="-24" y2="-14" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+  </g>
+</svg>
