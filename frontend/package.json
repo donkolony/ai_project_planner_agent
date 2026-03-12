@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "ai-project-planner-frontend",
   "private": true,
   "version": "0.1.0",
@@ -23,3 +24,10 @@
     "autoprefixer": "^10.4.16"
   }
 }
+=======
+  "dependencies": {
+    "react": "^19.2.4",
+    "vite": "^7.3.1"
+  }
+}
+>>>>>>> 5dcd6c24d9f57e1ce9825fa09ad4716bc230cd62
