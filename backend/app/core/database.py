@@ -1,7 +1,25 @@
 from sqlmodel import SQLModel, create_engine, Session
+from app.core.config import get_settings
 
-DATABASE_URL = "sqlite:///./plans.db"  # Local DB
-engine = create_engine(DATABASE_URL, echo=True)
+settings = get_settings()
+
+# Use database URL from settings (supports SQLite locally, SQL Server in Azure)
+DATABASE_URL = settings.database_url
+
+# Additional engine options for production
+engine_kwargs = {}
+if DATABASE_URL.startswith("mssql"):
+    # SQL Server specific options
+    engine_kwargs = {
+        "echo": settings.debug,
+        "pool_pre_ping": True,
+        "pool_recycle": 3600,
+    }
+else:
+    # SQLite options
+    engine_kwargs = {"echo": settings.debug}
+
+engine = create_engine(DATABASE_URL, **engine_kwargs)
 
 
 def init_db():
