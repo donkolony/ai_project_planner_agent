@@ -26,9 +26,10 @@ if settings.environment == "development":
         "http://127.0.0.1:3000",
     ]
 else:
-    # Production: Allow from environment variable or default to specific Azure domain
-    frontend_url = os.getenv("FRONTEND_URL", "https://ai-project-planner.azurewebsites.net")
-    allow_origins = [frontend_url]
+    # Production: Allow from environment variable
+    frontend_urls = os.getenv("FRONTEND_URL", "https://ai-project-planner.azurewebsites.net")
+    # Support multiple URLs separated by comma
+    allow_origins = [url.strip() for url in frontend_urls.split(",")]
 
 app.add_middleware(
     CORSMiddleware,
