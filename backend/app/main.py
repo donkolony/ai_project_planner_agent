@@ -20,10 +20,16 @@ app = FastAPI(title=settings.app_name, version="0.1.0")
 # Configure CORS based on environment
 if settings.environment == "development":
     allow_origins = [
-        "http://localhost:5173",
         "http://localhost:3000",
-        "http://127.0.0.1:5173",
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
+        "http://localhost:5176",
         "http://127.0.0.1:3000",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:5174",
+        "http://127.0.0.1:5175",
+        "http://127.0.0.1:5176",
     ]
 else:
     # Production: Allow from environment variable
@@ -35,7 +41,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=allow_origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
