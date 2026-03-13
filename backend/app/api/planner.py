@@ -34,16 +34,16 @@ async def generate_plan(
     )
 
     # Save plan to DB
-    db_plan = PlanDB(
-        project_name=payload.project_name,
-        description=payload.description,
-        tech_stack=json.dumps(payload.tech_stack),
-        summary=result["summary"],
-        phases=json.dumps(result["phases"]),
-    )
-    session.add(db_plan)
-    session.commit()
-    session.refresh(db_plan)
+    # db_plan = PlanDB(
+    #     project_name=payload.project_name,
+    #     description=payload.description,
+    #     tech_stack=json.dumps(payload.tech_stack),
+    #     summary=result["summary"],
+    #     phases=json.dumps(result["phases"]),
+    # )
+    # session.add(db_plan)
+    # session.commit()
+    # session.refresh(db_plan)
 
     return {"summary": result["summary"], "phases": result["phases"]}
 
