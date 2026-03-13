@@ -2,9 +2,9 @@ name: Run FastAPI App
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dep/project ]
   pull_request:
-    branches: [ main ]
+    branches: [ dep/project ]
 
 jobs:
   run:

@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
@@ -17,22 +18,38 @@ settings = get_settings()
 
 app = FastAPI(title=settings.app_name, version="0.1.0")
 
-<<<<<<< HEAD
+
 # Enable CORS to allow frontend requests from localhost:5173
+
+# Configure CORS based on environment
+if settings.environment == "development":
+    allow_origins = [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:3000",
+    ]
+else:
+    # Production: Allow from environment variable
+    frontend_urls = os.getenv("FRONTEND_URL", "https://ai-project-planner.azurewebsites.net")
+    # Support multiple URLs separated by comma
+    allow_origins = [url.strip() for url in frontend_urls.split(",")]
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-=======
+
 # Initialize database tables on startup (Not Needed here: to be removed)
 @app.on_event("startup")
 def on_startup():
     init_db()
 
->>>>>>> 5dcd6c24d9f57e1ce9825fa09ad4716bc230cd62
+
 
 app.include_router(health_router)
 app.include_router(planner_router)
