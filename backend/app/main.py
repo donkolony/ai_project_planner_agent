@@ -4,7 +4,11 @@ from app.core.config import get_settings
 from app.api.health import router as health_router
 from app.api.planner import router as planner_router
 import os
+import logging
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 """
 This module should:
@@ -37,6 +41,9 @@ else:
     # Support multiple URLs separated by comma
     allow_origins = [url.strip() for url in frontend_urls.split(",")]
 
+logger.info(f"🔒 CORS Configuration - Environment: {settings.environment}")
+logger.info(f"🔒 Allowed Origins: {allow_origins}")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allow_origins,
@@ -47,3 +54,15 @@ app.add_middleware(
 
 app.include_router(health_router)
 app.include_router(planner_router)
+
+# Root endpoint to verify API is running
+@app.get("/")
+async def root():
+    return {
+        "message": "AI Project Planner API",
+        "version": "0.1.0",
+        "status": "running",
+        "environment": settings.environment,
+    }
+
+logger.info("✅ FastAPI application initialized successfully")

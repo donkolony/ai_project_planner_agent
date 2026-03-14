@@ -64,11 +64,36 @@ export default function ProjectForm() {
 
       navigate('/plan', { state: { plan: response } })
     } catch (err) {
-      setError(
-        err.response?.data?.detail ||
-        'Failed to generate plan. Please try again.'
-      )
-      console.error('Plan generation error:', err)
+      // Detailed error logging for debugging
+      console.error('🚨 Plan generation error:', {
+        message: err.message,
+        status: err.response?.status,
+        data: err.response?.data,
+        code: err.code,
+      })
+
+      // Provide user-friendly error messages
+      let errorMessage = 'Failed to generate plan. '
+      
+      if (err.code === 'ECONNABORTED') {
+        errorMessage += 'Request timeout - backend may be slow or unreachable.'
+      } else if (err.message === 'Network Error') {
+        errorMessage += 'Network error - check your internet connection and backend URL.'
+      } else if (err.response?.status === 404) {
+        errorMessage += 'Backend API endpoint not found.'
+      } else if (err.response?.status === 500) {
+        errorMessage += 'Backend server error. Check backend logs.'
+      } else if (err.response?.status === 503) {
+        errorMessage += 'Backend service unavailable. Try again later.'
+      } else if (err.response?.data?.detail) {
+        errorMessage = err.response.data.detail
+      } else if (err.response?.data?.error) {
+        errorMessage = err.response.data.error
+      } else {
+        errorMessage += 'Please try again or contact support.'
+      }
+
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
