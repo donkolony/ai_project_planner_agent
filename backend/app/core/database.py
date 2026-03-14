@@ -36,17 +36,17 @@ else:
 engine = create_engine(DATABASE_URL, **engine_kwargs)
 
 
-def init_db():
-    """Create database tables"""
-    from app.models.db_models import PlanDB
-    logger.info("🛠️ Creating tables on engine metadata...")
-    SQLModel.metadata.create_all(engine)
-    
-    # Log tables for verification
-    from sqlalchemy import inspect
-    inspector = inspect(engine)
-    tables = inspector.get_table_names()
-    logger.info(f"📊 Registered tables in DB: {tables}")
+# def init_db():
+#     """Create database tables"""
+#     from app.models.db_models import PlanDB
+#     logger.info("🛠️ Creating tables on engine metadata...")
+#     SQLModel.metadata.create_all(engine)
+#     
+#     # Log tables for verification
+#     from sqlalchemy import inspect
+#     inspector = inspect(engine)
+#     tables = inspector.get_table_names()
+#     logger.info(f"📊 Registered tables in DB: {tables}")
 
 
 def get_session():

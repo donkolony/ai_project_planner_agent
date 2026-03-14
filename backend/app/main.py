@@ -23,9 +23,9 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize database tables
-    init_db()
-    logger.info("✅ Database initialized")
+    # Initialize database tables (Commented out)
+    # init_db()
+    # logger.info("✅ Database initialized")
     yield
 
 app = FastAPI(title=settings.app_name, version="0.1.0", lifespan=lifespan)

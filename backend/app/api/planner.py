@@ -4,7 +4,7 @@ from sqlmodel import Session, select
 from app.services.ai_services import AIPlanner
 from app.models.plan import PlanResponse
 from app.models.db_models import PlanDB
-from app.core.database import get_session
+# from app.core.database import get_session
 import json
 from uuid import UUID
 import logging
@@ -27,7 +27,7 @@ def get_ai_planner():
 @router.post("/", response_model=PlanResponse)
 async def generate_plan(
     payload: PlanRequest,
-    # session: Session = Depends(get_session),  # Commented out - database disabled
+    # session: Session = Depends(get_session),
     ai_planner: AIPlanner = Depends(get_ai_planner),
 ):
     logger.info(f"📋 Generating plan for project: {payload.project_name}")
@@ -43,7 +43,6 @@ async def generate_plan(
         logger.error(f"❌ Error generating plan: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to generate plan: {str(e)}")
 
-    # # Database save commented out for now
     # try:
     #     # Save plan to DB
     #     db_plan = PlanDB(
@@ -66,18 +65,19 @@ async def generate_plan(
 
 
 @router.get("/{plan_id}", response_model=PlanResponse)
-async def get_plan(plan_id: UUID, session: Session = Depends(get_session)):
-    plan = session.get(PlanDB, plan_id)
-    if not plan:
-        raise HTTPException(status_code=404, detail="Plan not found")
-
-    return {"summary": plan.summary, "phases": json.loads(plan.phases)}
+async def get_plan(plan_id: UUID): # session: Session = Depends(get_session)):
+    # plan = session.get(PlanDB, plan_id)
+    # if not plan:
+    #     raise HTTPException(status_code=404, detail="Plan not found")
+    # return {"summary": plan.summary, "phases": json.loads(plan.phases)}
+    raise HTTPException(status_code=501, detail="Persistence disabled")
 
 
 @router.get("/", response_model=list[PlanResponse])
-async def get_all_plans(session: Session = Depends(get_session)):
-    plans = session.exec(select(PlanDB)).all()
-    return [
-        {"summary": p.summary, "phases": json.loads(p.phases)}
-        for p in plans
-    ]
+async def get_all_plans(): # session: Session = Depends(get_session)):
+    # plans = session.exec(select(PlanDB)).all()
+    # return [
+    #     {"summary": p.summary, "phases": json.loads(p.phases)}
+    #     for p in plans
+    # ]
+    return []
