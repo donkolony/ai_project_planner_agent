@@ -27,7 +27,7 @@ def get_ai_planner():
 @router.post("/", response_model=PlanResponse)
 async def generate_plan(
     payload: PlanRequest,
-    session: Session = Depends(get_session),
+    # session: Session = Depends(get_session),  # Commented out - database disabled
     ai_planner: AIPlanner = Depends(get_ai_planner),
 ):
     logger.info(f"📋 Generating plan for project: {payload.project_name}")
@@ -43,23 +43,24 @@ async def generate_plan(
         logger.error(f"❌ Error generating plan: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to generate plan: {str(e)}")
 
-    try:
-        # Save plan to DB
-        db_plan = PlanDB(
-            project_name=payload.project_name,
-            description=payload.description,
-            tech_stack=json.dumps(payload.tech_stack),
-            summary=result["summary"],
-            phases=json.dumps(result["phases"]),
-        )
-        session.add(db_plan)
-        session.commit()
-        session.refresh(db_plan)
-        logger.info(f"💾 Plan saved to database with ID: {db_plan.id}")
-    except Exception as e:
-        logger.error(f"❌ Error saving plan to database: {str(e)}", exc_info=True)
-        session.rollback()
-        raise HTTPException(status_code=500, detail=f"Failed to save plan: {str(e)}")
+    # # Database save commented out for now
+    # try:
+    #     # Save plan to DB
+    #     db_plan = PlanDB(
+    #         project_name=payload.project_name,
+    #         description=payload.description,
+    #         tech_stack=json.dumps(payload.tech_stack),
+    #         summary=result["summary"],
+    #         phases=json.dumps(result["phases"]),
+    #     )
+    #     session.add(db_plan)
+    #     session.commit()
+    #     session.refresh(db_plan)
+    #     logger.info(f"💾 Plan saved to database with ID: {db_plan.id}")
+    # except Exception as e:
+    #     logger.error(f"❌ Error saving plan to database: {str(e)}", exc_info=True)
+    #     session.rollback()
+    #     raise HTTPException(status_code=500, detail=f"Failed to save plan: {str(e)}")
 
     return {"summary": result["summary"], "phases": result["phases"]}
 
