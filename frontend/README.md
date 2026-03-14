@@ -61,8 +61,8 @@ frontend/
 
 ### Prerequisites
 
-- Node.js 16+ and npm/yarn
-- Backend running at `http://localhost:8000`
+- Node.js 18+ (20+ recommended) and npm/yarn. The project will warn if an older version is used.
+- Backend running at `http://localhost:8000` or accessible via Azure.
 
 ### Installation
 
@@ -329,12 +329,9 @@ app.add_middleware(
 
 ### Port Already in Use
 
-**Problem**: Port 5173 is already in use
+**Problem**: The development server fails to start with an error that `Port 5173 is already in use`.
 
-**Solution**: Specify a different port:
-```bash
-npm run dev -- --port 5174
-```
+**Solution**: The frontend must run exactly on port 5173 to be allowed by the backend's CORS policy. If port 5173 is in use, you must find the process using it and stop it before starting the frontend development server. Do not try to run the frontend on a different port like `5174` or `5176`, as the backend will block the API requests and you will see an application crash/blank screen.
 
 ### Build Failures
 
