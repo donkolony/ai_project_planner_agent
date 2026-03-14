@@ -23,10 +23,9 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Database initialization commented out for now
-    # init_db()
-    # logger.info("✅ Database initialized")
-    logger.info("ℹ️  Database initialization skipped")
+    # Initialize database tables
+    init_db()
+    logger.info("✅ Database initialized")
     yield
 
 app = FastAPI(title=settings.app_name, version="0.1.0", lifespan=lifespan)
@@ -47,9 +46,11 @@ if settings.environment == "development":
     ]
 else:
     # Production: Allow from environment variable
-    frontend_urls = os.getenv("FRONTEND_URL", "https://ai-project-planner.azurewebsites.net")
+    frontend_urls = os.getenv("FRONTEND_URL", "https://ai-project-planner.azurewebsites.net,https://ai-project-planner-frontend-git-main-donkolonys-projects.vercel.app,https://ai-project-planner-frontend.vercel.app")
     # Support multiple URLs separated by comma
     allow_origins = [url.strip() for url in frontend_urls.split(",")]
+    # Also allow any Vercel preview URL (Optional but helpful)
+    allow_origins.append("https://*.vercel.app")
 
 logger.info(f"🔒 CORS Configuration - Environment: {settings.environment}")
 logger.info(f"🔒 Allowed Origins: {allow_origins}")
