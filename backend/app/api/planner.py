@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from sqlmodel import Session, select
+from sqlmodel import Session
 from app.services.ai_services import AIPlanner
 from app.models.plan import PlanResponse
 from app.models.db_models import PlanDB
@@ -18,8 +18,8 @@ class PlanRequest(BaseModel):
     project_name: str
     description: str
     tech_stack: list[str]
-
-
+    
+    
 def get_ai_planner():
     return AIPlanner()
 

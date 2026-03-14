@@ -1,21 +1,20 @@
-# test_ai_planner.py
+from tests.mocks.mock_ai_planner import MockAIPlanner
 
-from app.services.ai_services import AIPlanner
 
-# Create an instance of AIPlanner
-planner = AIPlanner()
+def test_mock_ai_planner_returns_expected_structure():
+    planner = MockAIPlanner()
 
-# Sample project data
-project_name = "AI Project Planner Agent"
-description = "An AI agent that generates project plans"
-tech_stack = ["Python", "FastAPI", "React", "Tailwind"]
+    result = planner.generate_plan(
+        project_name="AI Project Planner Agent",
+        description="An AI agent that generates project plans",
+        tech_stack=["Python", "FastAPI", "React"],
+    )
 
-# Generate plan
-result = planner.generate_plan(project_name, description, tech_stack)
-
-# Print results
-print("Summary:", result["summary"])
-print("Phases:")
-for phase in result["phases"]:
-    print("-", phase)
+    assert isinstance(result, dict)
+    assert "summary" in result
+    assert "phases" in result
+    assert isinstance(result["phases"], list)
+    # spot-check the mock content
+    assert result["summary"] == "Mock summary"
+    assert result["phases"][0]["name"] == "Mock phase 1"
     
