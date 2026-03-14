@@ -1,6 +1,8 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
+from app.core.database import init_db
 from app.api.health import router as health_router
 from app.api.planner import router as planner_router
 import os
@@ -19,7 +21,14 @@ This module should:
 
 settings = get_settings()
 
-app = FastAPI(title=settings.app_name, version="0.1.0")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Initialize database tables
+    init_db()
+    logger.info("✅ Database initialized")
+    yield
+
+app = FastAPI(title=settings.app_name, version="0.1.0", lifespan=lifespan)
 
 # Configure CORS based on environment
 if settings.environment == "development":
