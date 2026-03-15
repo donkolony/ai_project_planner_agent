@@ -1,4 +1,4 @@
-# 🔧 Troubleshooting & Common Issues Guide
+# Troubleshooting & Common Issues Guide
 
 ## Installation Issues
 
