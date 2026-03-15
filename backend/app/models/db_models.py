@@ -17,6 +17,7 @@ class PlanDB(SQLModel, table=True):
         project_name (str): The name of the project.
         description (str): The user's original project description.
         tech_stack (str): A string representation of the technology stack.
+        recommended_tech_stack (str): A JSON-encoded string of the AI's suggested tech stack.
         summary (str): The AI-generated architectural overview summary.
         phases (str): A JSON-encoded string containing the project phases and tasks.
     """
@@ -25,5 +26,6 @@ class PlanDB(SQLModel, table=True):
     project_name: str
     description: str
     tech_stack: str
+    recommended_tech_stack: str = "[]"
     summary: str
     phases: str
