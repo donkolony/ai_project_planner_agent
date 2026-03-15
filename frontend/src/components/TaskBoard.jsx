@@ -1,3 +1,11 @@
+/**
+ * Renders a visual board of all tasks flattened from the project phases.
+ * Displays tasks in a grid layout with interactive (visual-only) checkboxes.
+ *
+ * @param {Object} props - The component props.
+ * @param {Array<{name: string, tasks: string[]}>} props.phases - An array of phase objects containing the phase name and its associated tasks.
+ * @returns {JSX.Element} The rendered task board component.
+ */
 export default function TaskBoard({ phases }) {
   if (!phases || phases.length === 0) {
     return (

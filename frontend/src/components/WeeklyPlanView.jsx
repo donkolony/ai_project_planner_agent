@@ -1,3 +1,11 @@
+/**
+ * Renders a visual timeline and weekly sprint roadmap of the project phases.
+ * Displays phases and their associated tasks in a vertical timeline format.
+ *
+ * @param {Object} props - The component props.
+ * @param {Array<{name: string, tasks: string[]}>} props.phases - An array of phase objects, each containing a name and a list of tasks.
+ * @returns {JSX.Element} The rendered weekly sprint roadmap component.
+ */
 export default function WeeklyPlanView({ phases }) {
   if (!phases || phases.length === 0) {
     return (

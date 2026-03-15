@@ -2,6 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPlan } from "../api/plannerApi";
 
+/**
+ * Renders the main input form for users to submit project requirements.
+ * * Manages local state for the project name, description, and technology stack.
+ * On submission, it triggers the AI plan generation API and automatically
+ * navigates the user to the results page upon success.
+ *
+ * @returns {JSX.Element} The rendered project creation form.
+ */
 export default function ProjectForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

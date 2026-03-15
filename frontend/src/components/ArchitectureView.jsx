@@ -1,3 +1,11 @@
+/**
+ * Renders the architecture overview section of the project plan.
+ * Displays a dynamic summary alongside a static grid of the tech stack.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} [props.summary] - The generated architecture summary text. Can be null/undefined.
+ * @returns {JSX.Element} The rendered architecture view component.
+ */
 export default function ArchitectureView({ summary }) {
   if (!summary) {
     return (

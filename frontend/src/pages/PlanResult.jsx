@@ -4,6 +4,14 @@ import WeeklyPlanView from "../components/WeeklyPlanView";
 import TaskBoard from "../components/TaskBoard";
 import IssueList from "../components/IssueList";
 
+/**
+ * Renders the comprehensive results dashboard for a generated project plan.
+ * Expects to receive the generated `plan` object and `projectName` via
+ * React Router's `location.state` from the previous navigation event.
+ * Assembles and displays the Architecture, Roadmap, Tasks, and Issues sub-components.
+ *
+ * @returns {JSX.Element} The rendered project plan dashboard, or a fallback UI if no state data is found.
+ */
 export default function PlanResult() {
   const location = useLocation();
   const navigate = useNavigate();

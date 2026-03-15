@@ -5,6 +5,13 @@ import Home from "./pages/Home";
 import PlanResult from "./pages/PlanResult";
 import "./styles/index.css";
 
+/**
+ * Main application component for the AI Project Planner.
+ * Acts as the root layout wrapper and handles the routing configuration
+ * for the entire frontend using React Router.
+ *
+ * @returns {JSX.Element} The rendered application layout and routes.
+ */
 function App() {
   return (
     <Router>
