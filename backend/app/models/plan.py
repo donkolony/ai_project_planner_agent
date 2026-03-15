@@ -6,7 +6,7 @@ validating the project plans returned to the frontend.
 """
 
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 
 class Phase(BaseModel):
@@ -28,8 +28,10 @@ class PlanResponse(BaseModel):
 
     Attributes:
         summary (str): A high-level architectural and technical overview of the project.
+        recommended_tech_stack (Optional[List[str]]): A list of technologies suggested by the AI. Defaults to an empty list.
         phases (List[Phase]): A structured roadmap consisting of multiple development phases.
     """
 
     summary: str
+    recommended_tech_stack: Optional[List[str]] = []
     phases: List[Phase]
