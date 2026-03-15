@@ -1,3 +1,10 @@
+"""
+Main entry point for the AI Project Planner FastAPI application.
+
+This module initializes the FastAPI instance, configures global middleware
+(CORS), handles the application lifespan, and aggregates all sub-routers.
+"""
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,18 +20,17 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-"""
-This module should:
-    - Create app
-    - Register routes
-    - Nothing else (all endpoints live in api/)
-"""
-
 settings = get_settings()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """
+    Handle startup and shutdown logic for the application.
+
+    Currently used as a placeholder for future database migrations
+    or connection pool initializations.
+    """
     yield
 
 
@@ -49,7 +55,7 @@ if settings.environment == "development":
         CORSMiddleware,
         allow_origins=allow_origins,
         allow_credentials=True,
-        allow_methods=["*"],  # Use "*" to allow all methods to prevent headaches
+        allow_methods=["*"],
         allow_headers=["*"],
     )
 else:
@@ -65,7 +71,7 @@ else:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=allow_origins,
-        allow_origin_regex=r"https://.*\.vercel\.app",  # This is how FastAPI handles sub-domain wildcards safely
+        allow_origin_regex=r"https://.*\.vercel\.app",
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -75,9 +81,14 @@ app.include_router(health_router)
 app.include_router(planner_router)
 
 
-# Root endpoint to verify API is running
 @app.get("/")
 async def root():
+    """
+    Root endpoint to verify the API is alive and check basic environment info.
+
+    Returns:
+        dict: Basic metadata about the running API instance.
+    """
     return {
         "message": "AI Project Planner API",
         "version": "0.1.0",

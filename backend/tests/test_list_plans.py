@@ -1,3 +1,7 @@
+"""
+Integration tests for the project plan listing endpoint.
+"""
+
 import json
 from fastapi.testclient import TestClient
 from uuid import uuid4
@@ -8,6 +12,18 @@ client = TestClient(app)
 
 
 def test_list_plans(get_test_session):
+    """
+    Test the retrieval of all stored project plans.
+
+    Validates that:
+    1. The GET /plan/ endpoint returns a list of all plans in the database.
+    2. Multiple plan records are correctly serialized into the response list.
+    3. The integrity of individual plan data (summary and phases) is maintained
+       during bulk retrieval.
+
+    Args:
+        get_test_session: The database session fixture used for seeding multiple plans.
+    """
     session = get_test_session
 
     # Create multiple plans

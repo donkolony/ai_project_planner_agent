@@ -1,3 +1,10 @@
+"""
+Core service for interacting with AI models to generate project plans.
+
+This module encapsulates the logic for prompt construction, Azure OpenAI
+API communication, and robust parsing of AI-generated content.
+"""
+
 import re
 import logging
 import json
@@ -12,8 +19,18 @@ settings = get_settings()
 
 
 class AIPlanner:
+    """
+    A service class to handle project plan generation using Azure OpenAI.
+
+    Attributes:
+        client (AzureOpenAI): The initialized Azure OpenAI client.
+        deployment_name (str): The specific model deployment name to target.
+    """
+
     def __init__(self):
-        # Initialize Azure OpenAI client
+        """
+        Initialize the AIPlanner with configuration settings from the environment.
+        """
         self.client = AzureOpenAI(
             api_key=settings.azure_openai_api_key,
             azure_endpoint=settings.azure_openai_endpoint,
@@ -24,9 +41,15 @@ class AIPlanner:
 
     def _parse_ai_response(self, ai_output: str):
         """
-        Safely parse AI JSON output.
-        """
+        Safely parse the raw string output from the AI into a structured dictionary.
 
+        Args:
+            ai_output (str): The raw JSON string returned by the AI model.
+
+        Returns:
+            dict: A dictionary containing 'summary' and 'phases'.
+                  Returns a fallback structure if parsing fails.
+        """
         try:
             data = json.loads(ai_output)
 
@@ -41,7 +64,20 @@ class AIPlanner:
             return {"summary": "AI returned an invalid response", "phases": []}
 
     def generate_plan(self, project_name: str, description: str, tech_stack: list[str]):
+        """
+        Construct a prompt and call the AI model to generate a project roadmap.
 
+        This method handles the high-level orchestration of the AI request,
+        including prompt engineering and error handling for the API call.
+
+        Args:
+            project_name (str): Name of the project.
+            description (str): Detailed user description of the project goal.
+            tech_stack (list[str]): List of technologies to be integrated.
+
+        Returns:
+            dict: The parsed project plan or a hardcoded fallback if the service fails.
+        """
         try:
             # Build the prompt
             prompt = f""" 
@@ -80,7 +116,6 @@ class AIPlanner:
                     },
                     {"role": "user", "content": prompt},
                 ],
-                # max_tokens=1000,
                 temperature=0.7,
                 response_format={"type": "json_object"},
             )
@@ -96,6 +131,9 @@ class AIPlanner:
 
             # Safe fallback response for user
             return {
-                "Summary: Could not generate plan due to an internal error.\n"
-                "Phases:\n1. Setup\n2. Development\n3. Deployment"
+                "summary": "Could not generate plan due to an internal error.",
+                "phases": [
+                    {"name": "Setup", "tasks": ["Investigate connection error"]},
+                    {"name": "Development", "tasks": ["Try again later"]},
+                ],
             }

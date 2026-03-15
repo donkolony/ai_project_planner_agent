@@ -1,1 +1,0 @@
-"""Module of the backend application"""

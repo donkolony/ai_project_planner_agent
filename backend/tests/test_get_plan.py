@@ -1,3 +1,7 @@
+"""
+Integration tests for retrieving specific project plans from the database.
+"""
+
 import json
 from uuid import uuid4
 from fastapi.testclient import TestClient
@@ -8,6 +12,17 @@ client = TestClient(app)
 
 
 def test_get_plan_by_id(get_test_session):
+    """
+    Test the retrieval of a project plan by its unique ID.
+
+    Validates that:
+    1. A plan seeded directly into the test database can be accessed via the API.
+    2. The API correctly deserializes the JSON-encoded phases from the database.
+    3. The summary and phases returned match the records in the database.
+
+    Args:
+        get_test_session: The database session fixture used for seeding data.
+    """
     session = get_test_session
 
     plan = PlanDB(
