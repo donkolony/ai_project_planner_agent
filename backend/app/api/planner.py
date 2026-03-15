@@ -7,6 +7,7 @@ and fetching stored plans from the database.
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
+from typing import List, Optional
 from sqlmodel import Session
 from app.services.ai_services import AIPlanner
 from app.models.plan import PlanResponse
@@ -31,7 +32,7 @@ class PlanRequest(BaseModel):
 
     project_name: str
     description: str
-    tech_stack: list[str]
+    tech_stack: Optional[List[str]] = []
 
 
 @router.post("/", response_model=PlanResponse)
@@ -74,7 +75,11 @@ async def get_plan(plan_id: str, session: Session = Depends(get_session)):
     if not plan:
         raise HTTPException(status_code=404, detail="Plan not found")
 
-    return {"summary": plan.summary, "phases": json.loads(plan.phases)}
+    return {
+        "summary": plan.summary,
+        "recommended_tech_stack": json.loads(plan.recommended_tech_stack),
+        "phases": json.loads(plan.phases),
+    }
 
 
 @router.get("/", response_model=list[PlanResponse])
@@ -89,4 +94,11 @@ async def get_all_plans(session: Session = Depends(get_session)):
         list[PlanResponse]: A list of all stored project plans.
     """
     plans = session.query(PlanDB).all()
-    return [{"summary": p.summary, "phases": json.loads(p.phases)} for p in plans]
+    return [
+        {
+            "summary": p.summary,
+            "recommended_tech_stack": json.loads(p.recommended_tech_stack),
+            "phases": json.loads(p.phases),
+        }
+        for p in plans
+    ]
