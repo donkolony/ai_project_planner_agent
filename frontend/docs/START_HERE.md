@@ -1,13 +1,13 @@
 ════════════════════════════════════════════════════════════════════════════
 
-                   👋 WELCOME! START HERE 👋
+                   WELCOME! START HERE
 
                 AI Project Planner Agent - React Frontend
-                         Production Ready ✓
+                         Production Ready
 
 ════════════════════════════════════════════════════════════════════════════
 
-🎯 WHAT IS THIS?
+WHAT IS THIS?
 ════════════════════════════════════════════════════════════════════════════
 
 This is a complete, production-ready React frontend application for the
@@ -20,7 +20,7 @@ AI Project Planner Agent system. It allows users to:
 
 The entire application is built, tested, and ready to use!
 
-⚡ QUICK START (5 MINUTES)
+QUICK START (5 MINUTES)
 ════════════════════════════════════════════════════════════════════════════
 
 1. Navigate to frontend:
@@ -35,18 +35,18 @@ The entire application is built, tested, and ready to use!
 4. Open in browser:
    http://localhost:5173
 
-Done! The app is running! 🎉
+Done! The app is running!
 
-📋 WHAT YOU NEED
+WHAT YOU NEED
 ════════════════════════════════════════════════════════════════════════════
 
 Before running:
-✓ Node.js 16+ (download from nodejs.org)
-✓ npm (comes with Node.js)
-✓ Backend running at http://localhost:8000
+- Node.js 16+ (download from nodejs.org)
+- npm (comes with Node.js)
+- Backend running at http://localhost:8000
 (Start from backend/ directory: python -m uvicorn app.main:app --reload)
 
-📚 DOCUMENTATION (CHOOSE YOUR PATH)
+DOCUMENTATION (CHOOSE YOUR PATH)
 ════════════════════════════════════════════════════════════════════════════
 
 Path 1: "Just Run It"
@@ -70,7 +70,7 @@ Path 4: "Something's Broken"
 ├── Find your issue
 └── Follow the solution!
 
-📖 KEY DOCUMENTATION FILES
+KEY DOCUMENTATION FILES
 ════════════════════════════════════════════════════════════════════════════
 
 Essential Files:
@@ -85,32 +85,32 @@ Reference Files: 6. DELIVERY_SUMMARY.md .................. What you got 7. DOCUM
 
 All in root directory: ai_project_planner_agent/
 
-✨ WHAT'S INCLUDED
+WHAT'S INCLUDED
 ════════════════════════════════════════════════════════════════════════════
 
 Complete Frontend Application:
-✓ Home page with project form
-✓ Results page with plan details
-✓ Architecture visualization
-✓ Weekly sprint roadmap
-✓ Task board
-✓ GitHub issue generator
-✓ Loading states & error handling
-✓ Responsive design (mobile, tablet, desktop)
+- Home page with project form
+- Results page with plan details
+- Architecture visualization
+- Weekly sprint roadmap
+- Task board
+- GitHub issue generator
+- Loading states & error handling
+- Responsive design (mobile, tablet, desktop)
 
 Technology:
-✓ React 18
-✓ Vite build tool
-✓ Tailwind CSS
-✓ React Router
-✓ Axios
+- React 18
+- Vite build tool
+- Tailwind CSS
+- React Router
+- Axios
 
 Configuration:
-✓ Everything pre-configured
-✓ Just run npm install
-✓ No complex setup needed
+- Everything pre-configured
+- Just run npm install
+- No complex setup needed
 
-🚀 NEXT STEPS
+NEXT STEPS
 ════════════════════════════════════════════════════════════════════════════
 
 Right now:
@@ -137,7 +137,7 @@ This week:
 • Customize styling
 • Add new features
 
-🎯 COMMON QUESTIONS
+COMMON QUESTIONS
 ════════════════════════════════════════════════════════════════════════════
 
 Q: Where's the code?
@@ -164,7 +164,7 @@ A: Yes! It's fully optimized and tested.
 Q: What if I want to add more features?
 A: Easy! Components are modular and well-documented.
 
-📊 PROJECT STRUCTURE
+PROJECT STRUCTURE
 ════════════════════════════════════════════════════════════════════════════
 
 frontend/ ← All frontend code
@@ -181,7 +181,7 @@ frontend/ ← All frontend code
 ├── tailwind.config.js ← Style config
 └── README.md ← Complete guide
 
-💻 COMMANDS YOU'LL USE
+COMMANDS YOU'LL USE
 ════════════════════════════════════════════════════════════════════════════
 
 npm install # Install dependencies (once)
@@ -190,7 +190,7 @@ npm run build # Build for production
 npm run preview # Test production build locally
 npm run lint # Check code (optional)
 
-🆘 SOMETHING WRONG?
+SOMETHING WRONG?
 ════════════════════════════════════════════════════════════════════════════
 
 1. Check browser console (Press F12)
