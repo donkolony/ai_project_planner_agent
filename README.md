@@ -1,6 +1,6 @@
 # AI Project Planner Agent
 
-An AI-powered assistant that transforms raw project ideas into structured architecture designs, actionable task breakdowns, and clear weekly execution plans to improve project delivery and team coordination.
+An AI-powered assistant that transforms raw project ideas into structured architecture designs, actionable task breakdowns, and clear execution plans to improve project delivery and team coordination.
 
 ---
 
@@ -8,19 +8,19 @@ An AI-powered assistant that transforms raw project ideas into structured archit
 
 Student and junior development teams often struggle with:
 
-- Poor project planning and unclear architecture
-- Large tasks that are not broken into manageable pieces
-- Lack of structured weekly goals
-- Inconsistent issue tracking in Git platforms
-- Rushed implementation without proper roadmap
+* Poor project planning and unclear architecture
+* Large tasks that are not broken into manageable pieces
+* Lack of structured weekly goals
+* Inconsistent issue tracking in Git platforms
+* Rushed implementation without proper roadmap
 
 The **AI Project Planner Agent** solves this by automatically generating:
 
-- High-level system architecture
-- Feature-to-task breakdown
-- Project duration-based sprint plan
-- Git-ready issue descriptions
-- Clear deliverables per week
+* High-level system architecture
+* Feature-to-task breakdown
+* Structured project roadmap
+* Git-ready issue descriptions
+* Clear deliverables per phase
 
 ---
 
@@ -28,50 +28,49 @@ The **AI Project Planner Agent** solves this by automatically generating:
 
 ### System Flow
 
-User Input → Frontend → Backend → AI Planning Engine → Structured JSON Output → Dashboard Rendering
+User Input -> React/JavaScript Frontend -> FastAPI Backend -> AI Planning Engine -> Structured JSON Output -> Dashboard Rendering
 
 ### Core Components
 
-1. Frontend (React + JavaScript)
-   - Project idea submission form
-   - Architecture display
-   - Weekly roadmap visualization
-   - Task breakdown board
+1. **Frontend (React + JavaScript)**
 
-2. Backend (FastAPI)
-   - Prompt orchestration
-   - AI response validation
-   - JSON schema enforcement
-   - REST API endpoints
+   * Project idea submission form
+   * Architecture display
+   * Roadmap visualization
+   * Task breakdown board
 
-3. AI Layer
-   - Architecture generator
-   - Task breakdown generator
-   - Weekly sprint planner
-   - Issue formatter
+2. **Backend (FastAPI + Python)**
+
+   * Prompt orchestration
+   * AI response validation
+   * JSON schema enforcement
+   * REST API endpoints
+
+3. **AI Layer**
+
+   * Architecture generator
+   * Task breakdown generator
+   * Roadmap planner
+   * Issue formatter
 
 ---
 
 ## Tech Stack
 
-Frontend: React, JavaScript, Axios, Tailwind CSS
-
-Backend: Python, FastAPI, Pydantic, Uvicorn
-
-AI Integration: Azure OpenAI (gpt-4o-mini) or OpenAI API, Structured JSON prompt design
-
-Hosting: Azure App Services (backend), Vercel (frontend)
+**Frontend:** React, JavaScript, Axios, Tailwind CSS
+**Backend:** Python, FastAPI, Pydantic, Uvicorn
+**AI Integration:** Azure OpenAI (gpt-4o-mini), Structured JSON prompt design
 
 ---
 
 ## Features
 
-- Convert project ideas into structured plans
-- Generate full project architecture
-- Break features into small actionable tasks
-- Create 5-week sprint roadmap
-- Produce Git-ready issue descriptions
-- Enforce structured JSON outputs
+* Convert project ideas into structured plans
+* Generate full project architecture
+* Break features into small actionable tasks
+* Create dynamic project roadmap based on duration
+* Produce Git-ready issue descriptions
+* Enforce structured JSON outputs
 
 ---
 
@@ -79,54 +78,32 @@ Hosting: Azure App Services (backend), Vercel (frontend)
 
 ### Base URL
 
+```
 http://localhost:8000
+```
 
 ### Endpoints
 
-**Health**
+* **GET /health/** — Health Check
+* **GET /plan/** — Get All Plans
+* **POST /plan/** — Generate Plan
+* **GET /plan/{plan_id}** — Get Plan
 
-- GET /health/ : Health check
-
-**Planner**
-
-- GET /plan/ : Get all plans
-- POST /plan/ : Generate plan
-- GET /plan/{plan_id} : Get a specific plan
-
-**Default**
-
-- GET / : Root
-
-### Example Request (POST /plan/)
-
-Request Body:
+### Sample Request
 
 ```json
 {
   "project_name": "AI Task Manager",
-  "description": "AI Task Manager is a productivity web application that helps users organize and manage tasks using artificial intelligence. Users can create tasks, set deadlines, and categorize work. The AI analyzes task descriptions, deadlines, and workload to automatically prioritize tasks, suggest schedules, and convert natural language inputs into structured tasks with priorities, tags, and due dates.",
-  "tech_stack": [
-    "React",
-    "JavaScript",
-    "Next.js",
-    "Tailwind CSS",
-    "Node.js",
-    "Express.js",
-    "PostgreSQL",
-    "Prisma",
-    "OpenAI API",
-    "JWT Authentication",
-    "Docker",
-    "Vercel"
-  ]
+  "description": "AI Task Manager is a productivity web application that helps users organize and manage tasks using artificial intelligence.",
+  "tech_stack": ["React", "Next.js", "Tailwind CSS", "Node.js", "Express.js", "PostgreSQL", "Prisma", "OpenAI API", "JWT Authentication", "Docker", "Vercel"]
 }
 ```
 
-Response:
+### Sample Response
 
 ```json
 {
-  "summary": "AI Task Manager is a productivity web application that leverages artificial intelligence to help users organize and manage their tasks effectively.",
+  "summary": "AI Task Manager is a productivity web application that leverages artificial intelligence to help users organize and manage tasks effectively.",
   "phases": [
     {
       "name": "Planning",
@@ -143,41 +120,6 @@ Response:
         "Design API endpoints and data models",
         "Finalize UI/UX designs and user flows"
       ]
-    },
-    {
-      "name": "Development",
-      "tasks": [
-        "Set up project repository and development environment",
-        "Implement front-end components using React and JavaScript",
-        "Develop back-end services using Node.js and Express.js",
-        "Integrate PostgreSQL database with Prisma",
-        "Implement AI features using OpenAI API",
-        "Set up JWT authentication for user management"
-      ]
-    },
-    {
-      "name": "Testing",
-      "tasks": [
-        "Conduct unit testing for individual components",
-        "Perform integration testing for the complete application",
-        "Gather user feedback through beta testing"
-      ]
-    },
-    {
-      "name": "Deployment",
-      "tasks": [
-        "Containerize application using Docker",
-        "Deploy application on Vercel",
-        "Set up monitoring and logging for the application"
-      ]
-    },
-    {
-      "name": "Maintenance",
-      "tasks": [
-        "Monitor application performance and user feedback",
-        "Implement updates and bug fixes",
-        "Plan for future enhancements and feature additions"
-      ]
     }
   ]
 }
@@ -185,7 +127,7 @@ Response:
 
 ---
 
-## Running Locally
+## ▶ Running Locally
 
 ### Backend
 
@@ -197,12 +139,11 @@ source venv/bin/activate      # On Windows use `venv\Scripts\activate`
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
-**Option 2: Using uvsync**
+**Option 2: Using uv sync**
 ```bash
 cd backend
 uv sync
 ```
-
 
 ### Frontend
 
@@ -216,24 +157,10 @@ npm run dev  # Start the frontend development server
 
 ## Key Engineering Decisions
 
-- Structured JSON outputs for reliability
-- Backend as AI orchestrator for security
-- Modular planning components for extensibility
-- Frontend uses React with JavaScript for interactive UI
-
----
-
-## Demo Flow Instructions for Judges
-
-1. Navigate to the frontend URL (Vercel deployment or localhost)
-2. Enter a project name, description, and select the tech stack
-3. Click 'Generate Plan'
-4. Observe the generated architecture, task breakdown, and 5-week roadmap
-5. Optionally, use the Swagger UI to test API endpoints:
-   - GET /health/
-   - GET /plan/
-   - POST /plan/
-   - GET /plan/{plan_id}
+* Structured JSON outputs for reliability
+* Backend as AI orchestrator for security
+* Modular planning components for extensibility
+* Frontend supports both React and JavaScript for flexibility
 
 ---
 
@@ -241,42 +168,57 @@ npm run dev  # Start the frontend development server
 
 ```
 backend/
-  app/
-    main.py
-    api/
-    services/
-    schemas/
-    core/
-    tests/
-  requirements.txt
+├── app/
+├── tests/
+├── requirements.txt
+├── main.py
+└── docs/            # Backend-specific documentation (API.md, Database.md, Setup.md)
 
 frontend/
-  src/
-    components/
-    pages/
-    services/
-  App.jsx
-  package.json
+├── src/
+├── package.json
+├── vite.config.js
+└── docs/            # Frontend-specific documentation (Components.md, Deployment.md, Styling.md)
+
+README.md            # Main project README
 ```
 
 ---
 
-## Testing
+## Demo Flow (How to Test)
 
-- Validate JSON structure
-- Test API endpoints
-- Mock AI responses
-- Ensure proper error handling
+1. **Start backend:**
+   Activate the virtual environment and run `uvicorn app.main:app --reload`
+
+2. **Start frontend:**
+   Navigate to `frontend` and run `npm run dev`
+
+3. **Access app:**
+   Open your browser at `http://localhost:5173` (Vite default)
+
+4. **Test features:**
+
+   * Submit a project idea
+   * View generated architecture
+   * Explore roadmap and task breakdown
+   * Use API endpoints via Swagger UI (`http://localhost:8000/docs`)
 
 ---
 
 ## Future Improvements
 
-- GitHub/GitLab automatic issue creation
+### Feature Enhancements
+- Implement the ability to **download project plans as JSON**
+- Add **export to PDF** functionality for plans and reports
+- Visualize **roadmap and weekly plans graphically**
+- Include **tasks and issues visualization** in the frontend dashboard
+
+### Platform Enhancements
+- GitHub/GitLab **automatic issue creation**
 - Multi-agent planning and review
-- Persistent database storage
-- Authentication & team collaboration
-- Sprint analytics dashboard
+- Persistent database storage for plans and tasks
+- Authentication & team collaboration features
+- Sprint analytics and performance dashboard
 
 ---
 
