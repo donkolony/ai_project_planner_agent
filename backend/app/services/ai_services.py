@@ -63,36 +63,54 @@ class AIPlanner:
 
             return {"summary": "AI returned an invalid response", "phases": []}
 
-    def generate_plan(self, project_name: str, description: str, tech_stack: list[str]):
-        """
-        Construct a prompt and call the AI model to generate a project roadmap.
 
-        This method handles the high-level orchestration of the AI request,
-        including prompt engineering and error handling for the API call.
+def generate_plan(
+    self, project_name: str, description: str, tech_stack: list[str] = None
+):
+    """
+    Construct a prompt and call the AI model to generate a project roadmap.
 
-        Args:
-            project_name (str): Name of the project.
-            description (str): Detailed user description of the project goal.
-            tech_stack (list[str]): List of technologies to be integrated.
+    This method handles the high-level orchestration of the AI request,
+    including prompt engineering and error handling for the API call.
 
-        Returns:
-            dict: The parsed project plan or a hardcoded fallback if the service fails.
-        """
-        try:
-            # Build the prompt
-            prompt = f""" 
+    Args:
+        project_name (str): Name of the project.
+        description (str): Detailed user description of the project goal.
+        tech_stack (list[str], optional): List of technologies to be integrated. Defaults to None.
+
+    Returns:
+        dict: The parsed project plan or a hardcoded fallback if the service fails.
+    """
+    if tech_stack is None:
+        tech_stack = []
+
+    try:
+        # Dynamically handle the tech stack input
+        if len(tech_stack) > 0:
+            stack_context = (
+                f"Strictly use the following technologies: {', '.join(tech_stack)}"
+            )
+        else:
+            stack_context = "None provided. You must infer the most appropriate, minimal, and lightweight technologies based solely on the project description."
+
+        # Build the prompt
+        prompt = f""" 
             You are an expert software architect.
 
-            Generate a high-level software project plan. 
+            Generate a high-level software project plan based on the user's requirements. 
                     
             Project Name: {project_name} 
             Description: {description} 
-            Tech Stack: {", ".join(tech_stack)} 
+            Tech Stack: {stack_context} 
 
-            Return the result strictly as JSON in the following format:
-
+            Instructions:
+            1. If specific technologies are provided, build the architecture and phases around them.
+            2. If no tech stack is provided, deduce the most sensible stack. Do NOT overcomplicate. For example, do not add a backend or database if the description implies a simple static site, CLI tool, or local script.
+            
+            Return the result strictly as JSON in the exact following format:
             {{
                 "summary": "2 sentence summary of the project",
+                "recommended_tech_stack": ["tech 1", "tech 2"],
                 "phases": [
                     {{
                         "name": "Phase name",
@@ -106,34 +124,36 @@ class AIPlanner:
             Return valid JSON only.
             """
 
-            # Call AzureOpenAI chat endpoint
-            response = self.client.chat.completions.create(
-                model=self.deployment_name,
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a senior software architect.",
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.7,
-                response_format={"type": "json_object"},
-            )
+        # ... (your existing code to call Azure OpenAI and parse the JSON)
 
-            ai_output = response.choices[0].message.content
+        # Call AzureOpenAI chat endpoint
+        response = self.client.chat.completions.create(
+            model=self.deployment_name,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a senior software architect.",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.7,
+            response_format={"type": "json_object"},
+        )
 
-            # Parse the JSON response
-            return self._parse_ai_response(ai_output)
+        ai_output = response.choices[0].message.content
 
-        except Exception as e:
-            # Log error for developers
-            logging.error(f"AIPlanner Error: {e}")
+        # Parse the JSON response
+        return self._parse_ai_response(ai_output)
 
-            # Safe fallback response for user
-            return {
-                "summary": "Could not generate plan due to an internal error.",
-                "phases": [
-                    {"name": "Setup", "tasks": ["Investigate connection error"]},
-                    {"name": "Development", "tasks": ["Try again later"]},
-                ],
-            }
+    except Exception as e:
+        # Log error for developers
+        logging.error(f"AIPlanner Error: {e}")
+
+        # Safe fallback response for user
+        return {
+            "summary": "Could not generate plan due to an internal error.",
+            "phases": [
+                {"name": "Setup", "tasks": ["Investigate connection error"]},
+                {"name": "Development", "tasks": ["Try again later"]},
+            ],
+        }
