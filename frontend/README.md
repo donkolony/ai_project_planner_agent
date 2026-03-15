@@ -67,21 +67,25 @@ frontend/
 ### Installation
 
 1. Navigate to the frontend directory:
+
    ```bash
    cd frontend
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Create a `.env.local` file (optional, for custom backend URL):
+
    ```bash
    cp .env.example .env.local
    ```
-   
+
    Edit `.env.local` if your backend runs on a different URL:
+
    ```
    VITE_API_BASE_URL=http://localhost:8000
    ```
@@ -97,6 +101,7 @@ npm run dev
 The application will be available at `http://localhost:5173`
 
 The dev server includes:
+
 - Hot Module Replacement (HMR) for instant code updates
 - Fast refresh for React components
 - Proxy configuration for backend API calls
@@ -136,6 +141,7 @@ The frontend connects to the FastAPI backend using Axios. The API integration is
 ### Configuration
 
 Backend URL is configured via:
+
 1. Environment variable `VITE_API_BASE_URL`
 2. Default fallback: `http://localhost:8000`
 
@@ -144,6 +150,7 @@ Backend URL is configured via:
 ### Home Page (`/`)
 
 The home page displays:
+
 - Project overview and features
 - Project submission form with fields:
   - Project Name (required)
@@ -168,7 +175,9 @@ After plan generation, displays:
 ## Component Documentation
 
 ### ProjectForm Component
+
 Handles the initial project input with:
+
 - Form validation
 - Dynamic tech stack management
 - Loading states
@@ -176,26 +185,34 @@ Handles the initial project input with:
 - Navigation to results page
 
 ### ArchitectureView Component
+
 Displays architectural overview with component cards for:
+
 - Frontend
 - Backend
 - Database
 - AI Services
 
 ### WeeklyPlanView Component
+
 Timeline-based visualization showing:
+
 - Phases with visual indicators
 - Tasks organized by phase
 - Linear timeline design
 
 ### TaskBoard Component
+
 Task grid display with:
+
 - Phase-based grouping
 - Checkbox interactions
 - Task statistics
 
 ### IssueList Component
+
 GitHub issue generation with:
+
 - Automatic issue creation from phases and tasks
 - Copy to clipboard functionality
 - Issue template with acceptance criteria
@@ -215,6 +232,7 @@ The application uses **Tailwind CSS** for styling with custom configuration:
 ### Component Classes
 
 Reusable Tailwind component classes defined in `src/styles/index.css`:
+
 - `.card` - Standard card container
 - `.btn-primary` - Primary action button
 - `.btn-secondary` - Secondary action button
@@ -242,6 +260,7 @@ The application handles:
 ### Bundle Size
 
 Production build is optimized for:
+
 - Fast initial page load
 - Minimal JavaScript payload
 - Efficient CSS minification
@@ -258,6 +277,7 @@ Production build is optimized for:
 ### Static Hosting (Vercel, Netlify, etc.)
 
 1. Build the project:
+
    ```bash
    npm run build
    ```
@@ -303,6 +323,7 @@ CMD ["npm", "run", "preview"]
 ### Code Style
 
 The project uses:
+
 - ES6+ JavaScript features
 - JSX for component templates
 - Functional React patterns
@@ -315,6 +336,7 @@ The project uses:
 **Problem**: API calls fail with CORS errors
 
 **Solution**: Ensure backend has CORS enabled:
+
 ```python
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -332,6 +354,7 @@ app.add_middleware(
 **Problem**: Port 5173 is already in use
 
 **Solution**: Specify a different port:
+
 ```bash
 npm run dev -- --port 5174
 ```
@@ -341,6 +364,7 @@ npm run dev -- --port 5174
 **Problem**: Build command fails
 
 **Solution**:
+
 1. Clear node_modules and reinstall:
    ```bash
    rm -rf node_modules package-lock.json
@@ -364,6 +388,7 @@ This project is part of the AI Project Planner Agent system.
 ## Support
 
 For issues and questions:
+
 1. Check existing documentation
 2. Review backend API responses
 3. Check browser console for errors

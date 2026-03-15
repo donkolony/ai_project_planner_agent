@@ -6,31 +6,15 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4">About</h3>
             <p className="text-sm">
-              AI Project Planner Agent helps you convert project ideas into structured development plans using artificial intelligence.
+              AI Project Planner Agent helps you convert project ideas into
+              structured development plans using artificial intelligence.
             </p>
           </div>
-          {/* <div>
-            <h3 className="text-white font-semibold mb-4">Technology</h3>
-            <ul className="text-sm space-y-2">
-              <li>React & Vite</li>
-              <li>Tailwind CSS</li>
-              <li>FastAPI Backend</li>
-              <li>Azure OpenAI Integration</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-white font-semibold mb-4">Links</h3>
-            <ul className="text-sm space-y-2">
-              <li><a href="#" className="hover:text-white transition">GitHub</a></li>
-              <li><a href="#" className="hover:text-white transition">Documentation</a></li>
-              <li><a href="#" className="hover:text-white transition">Issues</a></li>
-            </ul>
-          </div> */}
         </div>
         <div className="border-t border-slate-800 mt-8 pt-8 text-center text-sm">
           <p>&copy; 2026 AI Project Planner Agent. All rights reserved.</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 export default function IssueList({ phases, projectName }) {
-  const [copiedIndex, setCopiedIndex] = useState(null)
+  const [copiedIndex, setCopiedIndex] = useState(null);
 
   // Generate GitHub-ready issues from phases and tasks
   const generateIssues = () => {
-    const issues = []
+    const issues = [];
 
     phases.forEach((phase, phaseIndex) => {
       // Create phase setup issue
@@ -13,14 +13,18 @@ export default function IssueList({ phases, projectName }) {
         id: `phase-${phaseIndex}`,
         title: `[${phase.name}] Setup and Planning`,
         description: `Initialize ${phase.name} phase for ${projectName}`,
-        labels: ['phase', 'setup', phase.name.toLowerCase().replace(/\s+/g, '-')],
+        labels: [
+          "phase",
+          "setup",
+          phase.name.toLowerCase().replace(/\s+/g, "-"),
+        ],
         acceptance_criteria: [
           `Define ${phase.name} scope and objectives`,
-          'Create detailed task list',
-          'Assign resources',
-          'Set milestones and deadlines',
+          "Create detailed task list",
+          "Assign resources",
+          "Set milestones and deadlines",
         ],
-      })
+      });
 
       // Create task issues
       if (phase.tasks && Array.isArray(phase.tasks)) {
@@ -29,22 +33,22 @@ export default function IssueList({ phases, projectName }) {
             id: `task-${phaseIndex}-${taskIndex}`,
             title: task,
             description: `Task from ${phase.name} phase\n\nProject: ${projectName}`,
-            labels: [phase.name.toLowerCase().replace(/\s+/g, '-'), 'task'],
+            labels: [phase.name.toLowerCase().replace(/\s+/g, "-"), "task"],
             acceptance_criteria: [
-              'Task is completed',
-              'Code is reviewed',
-              'Tests are passing',
-              'Documentation is updated',
+              "Task is completed",
+              "Code is reviewed",
+              "Tests are passing",
+              "Documentation is updated",
             ],
-          })
-        })
+          });
+        });
       }
-    })
+    });
 
-    return issues
-  }
+    return issues;
+  };
 
-  const issues = generateIssues()
+  const issues = generateIssues();
 
   const copyToClipboard = (issue, index) => {
     const issueMarkdown = `# ${issue.title}
@@ -53,16 +57,16 @@ export default function IssueList({ phases, projectName }) {
 ${issue.description}
 
 ## Acceptance Criteria
-${issue.acceptance_criteria.map((criterion) => `- [ ] ${criterion}`).join('\n')}
+${issue.acceptance_criteria.map((criterion) => `- [ ] ${criterion}`).join("\n")}
 
 ## Labels
-${issue.labels.map((label) => `\`${label}\``).join(', ')}`
+${issue.labels.map((label) => `\`${label}\``).join(", ")}`;
 
     navigator.clipboard.writeText(issueMarkdown).then(() => {
-      setCopiedIndex(index)
-      setTimeout(() => setCopiedIndex(null), 2000)
-    })
-  }
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    });
+  };
 
   if (issues.length === 0) {
     return (
@@ -70,7 +74,7 @@ ${issue.labels.map((label) => `\`${label}\``).join(', ')}`
         <h2 className="card-header">Git Issues</h2>
         <p className="text-slate-600">No issues available</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -91,7 +95,9 @@ ${issue.labels.map((label) => `\`${label}\``).join(', ')}`
                 <h3 className="font-semibold text-slate-900 text-sm mb-1 line-clamp-2">
                   {issue.title}
                 </h3>
-                <p className="text-xs text-slate-600 mb-2">{issue.description}</p>
+                <p className="text-xs text-slate-600 mb-2">
+                  {issue.description}
+                </p>
 
                 <div className="flex flex-wrap gap-1 mb-2">
                   {issue.labels.map((label) => (
@@ -122,7 +128,7 @@ ${issue.labels.map((label) => `\`${label}\``).join(', ')}`
                 onClick={() => copyToClipboard(issue, index)}
                 className="flex-shrink-0 px-3 py-1.5 bg-slate-100 hover:bg-primary-600 hover:text-white text-slate-700 rounded text-xs font-medium transition"
               >
-                {copiedIndex === index ? '✓ Copied' : 'Copy'}
+                {copiedIndex === index ? "✓ Copied" : "Copy"}
               </button>
             </div>
           </div>
@@ -135,5 +141,5 @@ ${issue.labels.map((label) => `\`${label}\``).join(', ')}`
         </p>
       </div>
     </div>
-  )
+  );
 }

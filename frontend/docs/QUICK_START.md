@@ -3,21 +3,25 @@
 ## Installation & Setup (5 minutes)
 
 ### Step 1: Navigate to Frontend Directory
+
 ```bash
 cd frontend
 ```
 
 ### Step 2: Install Dependencies
+
 ```bash
 npm install
 ```
 
 Expected output:
+
 ```
 added X packages in Xs
 ```
 
 ### Step 3: Verify Backend is Running
+
 Ensure your FastAPI backend is running on `http://localhost:8000`
 
 ```bash
@@ -27,11 +31,13 @@ python -m uvicorn app.main:app --reload
 ```
 
 ### Step 4: Start Development Server
+
 ```bash
 npm run dev
 ```
 
 Output:
+
 ```
   VITE v5.0.0  ready in 123 ms
 
@@ -40,6 +46,7 @@ Output:
 ```
 
 ### Step 5: Open in Browser
+
 Navigate to: **http://localhost:5173**
 
 ---
@@ -47,6 +54,7 @@ Navigate to: **http://localhost:5173**
 ## 🎯 Using the Application
 
 ### Home Page
+
 1. **Fill in Project Details:**
    - Project Name (required)
    - Description (required)
@@ -60,6 +68,7 @@ Navigate to: **http://localhost:5173**
    - Automatically navigates to results page
 
 ### Results Page
+
 View four sections:
 
 1. **Architecture** - System design overview
@@ -112,27 +121,35 @@ npm run lint
 ## 🔧 Troubleshooting
 
 ### Issue: "Port 5173 already in use"
+
 **Solution:**
+
 ```bash
 npm run dev -- --port 5174
 ```
 
 ### Issue: "Cannot find module 'react'"
+
 **Solution:**
+
 ```bash
 rm -rf node_modules package-lock.json
 npm install
 ```
 
 ### Issue: "Backend connection failed"
+
 **Solution:**
+
 1. Verify backend is running: `http://localhost:8000/health`
 2. Check network tab in browser DevTools
 3. Ensure CORS is enabled on backend
 4. Verify `VITE_API_BASE_URL` if using custom URL
 
 ### Issue: "Form submission doesn't work"
+
 **Solution:**
+
 1. Open browser console (F12)
 2. Check for error messages
 3. Verify backend endpoint: `POST /plan/`
@@ -162,10 +179,12 @@ frontend/
 ## 🎨 Component Overview
 
 ### Pages
+
 - **Home** - Form submission page
 - **PlanResult** - Results display with tabs
 
 ### Components
+
 - **Header** - Navigation bar
 - **ProjectForm** - Input form with validation
 - **ArchitectureView** - Architecture cards
@@ -229,18 +248,21 @@ As you explore the app, check off these features:
 ## 💡 Tips
 
 ### For Development
+
 - Use React DevTools extension for component inspection
 - Check Network tab to see API calls
 - Use Console for debugging
 - Press `h` in terminal for Vite help
 
 ### For Styling
+
 - Tailwind classes are already available
 - Add new classes directly to JSX
 - Refer to `tailwind.config.js` for custom colors
 - Use IntelliSense for class suggestions
 
 ### For API Integration
+
 - API client is in `src/services/apiClient.js`
 - API functions are in `src/api/plannerApi.js`
 - Add new endpoints to `plannerApi.js`
@@ -252,6 +274,7 @@ As you explore the app, check off these features:
 ### After Verifying It Works:
 
 1. **Build for Production:**
+
    ```bash
    npm run build
    ```

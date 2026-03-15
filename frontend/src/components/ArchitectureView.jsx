@@ -5,7 +5,7 @@ export default function ArchitectureView({ summary }) {
         <h2 className="card-header">Architecture Overview</h2>
         <p className="text-slate-600">No architecture data available</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -14,11 +14,13 @@ export default function ArchitectureView({ summary }) {
       <div className="prose prose-sm max-w-none text-slate-700">
         <p className="whitespace-pre-wrap">{summary}</p>
       </div>
-      
+
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
           <h3 className="font-semibold text-blue-900 mb-2">Frontend</h3>
-          <p className="text-sm text-blue-700">React + Vite with Tailwind CSS</p>
+          <p className="text-sm text-blue-700">
+            React + Vite with Tailwind CSS
+          </p>
         </div>
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
           <h3 className="font-semibold text-green-900 mb-2">Backend</h3>
@@ -30,9 +32,11 @@ export default function ArchitectureView({ summary }) {
         </div>
         <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
           <h3 className="font-semibold text-orange-900 mb-2">AI Services</h3>
-          <p className="text-sm text-orange-700">Azure OpenAI API Integration</p>
+          <p className="text-sm text-orange-700">
+            Azure OpenAI API Integration
+          </p>
         </div>
       </div>
     </div>
-  )
+  );
 }

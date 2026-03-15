@@ -5,10 +5,10 @@ export default function TaskBoard({ phases }) {
         <h2 className="card-header">Task Breakdown</h2>
         <p className="text-slate-600">No tasks available</p>
       </div>
-    )
+    );
   }
 
-  const allTasks = []
+  const allTasks = [];
   phases.forEach((phase, phaseIndex) => {
     if (phase.tasks && Array.isArray(phase.tasks)) {
       phase.tasks.forEach((task, taskIndex) => {
@@ -16,10 +16,10 @@ export default function TaskBoard({ phases }) {
           id: `${phaseIndex}-${taskIndex}`,
           task,
           phase: phase.name,
-        })
-      })
+        });
+      });
     }
-  })
+  });
 
   return (
     <div className="card">
@@ -59,10 +59,15 @@ export default function TaskBoard({ phases }) {
 
       <div className="mt-6 pt-4 border-t border-slate-200">
         <div className="flex justify-between text-sm text-slate-600">
-          <span>Total Tasks: <span className="font-semibold">{allTasks.length}</span></span>
-          <span>Phases: <span className="font-semibold">{phases.length}</span></span>
+          <span>
+            Total Tasks:{" "}
+            <span className="font-semibold">{allTasks.length}</span>
+          </span>
+          <span>
+            Phases: <span className="font-semibold">{phases.length}</span>
+          </span>
         </div>
       </div>
     </div>
-  )
+  );
 }

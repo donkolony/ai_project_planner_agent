@@ -5,13 +5,13 @@ export default function WeeklyPlanView({ phases }) {
         <h2 className="card-header">Weekly Sprint Roadmap</h2>
         <p className="text-slate-600">No phases available</p>
       </div>
-    )
+    );
   }
 
   return (
     <div className="card">
       <h2 className="card-header">📅 Weekly Sprint Roadmap</h2>
-      
+
       <div className="space-y-4">
         {phases.map((phase, index) => (
           <div
@@ -55,5 +55,5 @@ export default function WeeklyPlanView({ phases }) {
       {/* Timeline bottom cap */}
       <div className="ml-4 mt-4 w-0.5 h-4 bg-gradient-to-b from-primary-300 to-transparent"></div>
     </div>
-  )
+  );
 }

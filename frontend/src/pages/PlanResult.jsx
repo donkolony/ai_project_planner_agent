@@ -1,13 +1,13 @@
-import { useLocation, useNavigate } from 'react-router-dom'
-import ArchitectureView from '../components/ArchitectureView'
-import WeeklyPlanView from '../components/WeeklyPlanView'
-import TaskBoard from '../components/TaskBoard'
-import IssueList from '../components/IssueList'
+import { useLocation, useNavigate } from "react-router-dom";
+import ArchitectureView from "../components/ArchitectureView";
+import WeeklyPlanView from "../components/WeeklyPlanView";
+import TaskBoard from "../components/TaskBoard";
+import IssueList from "../components/IssueList";
 
 export default function PlanResult() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const plan = location.state?.plan
+  const location = useLocation();
+  const navigate = useNavigate();
+  const plan = location.state?.plan;
 
   if (!plan) {
     return (
@@ -17,18 +17,15 @@ export default function PlanResult() {
           <p className="text-slate-600 mb-4">
             Please generate a plan first by submitting a project idea.
           </p>
-          <button
-            onClick={() => navigate('/')}
-            className="btn-primary"
-          >
+          <button onClick={() => navigate("/")} className="btn-primary">
             Back to Home
           </button>
         </div>
       </div>
-    )
+    );
   }
 
-  const projectName = location.state?.projectName || 'Project'
+  const projectName = location.state?.projectName || "Project";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-12">
@@ -36,7 +33,7 @@ export default function PlanResult() {
         {/* Header */}
         <div className="mb-8">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="text-primary-600 hover:text-primary-700 text-sm font-medium mb-4"
           >
             ← Back to Home
@@ -45,22 +42,35 @@ export default function PlanResult() {
             {projectName} - Development Plan
           </h1>
           <p className="text-slate-600 mt-2">
-            Your AI-generated project plan with architecture, phases, tasks, and issues
+            Your AI-generated project plan with architecture, phases, tasks, and
+            issues
           </p>
         </div>
 
         {/* Navigation Tabs */}
         <div className="bg-white rounded-lg shadow-md mb-8 p-2 flex flex-wrap gap-2">
-          <a href="#architecture" className="px-4 py-2 rounded bg-primary-600 text-white text-sm font-medium">
+          <a
+            href="#architecture"
+            className="px-4 py-2 rounded bg-primary-600 text-white text-sm font-medium"
+          >
             Architecture
           </a>
-          <a href="#roadmap" className="px-4 py-2 rounded hover:bg-slate-100 text-slate-700 text-sm font-medium">
+          <a
+            href="#roadmap"
+            className="px-4 py-2 rounded hover:bg-slate-100 text-slate-700 text-sm font-medium"
+          >
             Roadmap
           </a>
-          <a href="#tasks" className="px-4 py-2 rounded hover:bg-slate-100 text-slate-700 text-sm font-medium">
+          <a
+            href="#tasks"
+            className="px-4 py-2 rounded hover:bg-slate-100 text-slate-700 text-sm font-medium"
+          >
             Tasks
           </a>
-          <a href="#issues" className="px-4 py-2 rounded hover:bg-slate-100 text-slate-700 text-sm font-medium">
+          <a
+            href="#issues"
+            className="px-4 py-2 rounded hover:bg-slate-100 text-slate-700 text-sm font-medium"
+          >
             Issues
           </a>
         </div>
@@ -98,15 +108,12 @@ export default function PlanResult() {
             <button className="btn-secondary hover:bg-blue-100 text-blue-900">
               📄 Export as PDF
             </button>
-            <button
-              onClick={() => navigate('/')}
-              className="btn-primary"
-            >
+            <button onClick={() => navigate("/")} className="btn-primary">
               ➕ Create New Plan
             </button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
