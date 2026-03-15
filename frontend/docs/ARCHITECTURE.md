@@ -1,4 +1,4 @@
-# 🏗️ Frontend Architecture Diagram
+# Frontend Architecture Diagram
 
 ## System Architecture
 
