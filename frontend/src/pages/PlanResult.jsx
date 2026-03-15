@@ -53,6 +53,23 @@ export default function PlanResult() {
             Your AI-generated project plan with architecture, phases, tasks, and
             issues
           </p>
+          
+          {/* AI Recommended Tech Stack Badges */}
+          {plan.recommended_tech_stack && plan.recommended_tech_stack.length > 0 && (
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-sm font-semibold text-slate-500 mr-1">
+                AI Recommended Stack:
+              </span>
+              {plan.recommended_tech_stack.map((tech, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-bold border border-indigo-200 shadow-sm"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Navigation Tabs */}
