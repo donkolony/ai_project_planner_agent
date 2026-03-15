@@ -9,4 +9,4 @@ def test_health_endpoint():
     assert response.status_code == 200
 
     data = response.json()
-    assert data.get("status") == "AI Project Planner Backend Running"
+    assert data.get("status") == "running"
