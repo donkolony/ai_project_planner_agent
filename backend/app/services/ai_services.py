@@ -5,7 +5,6 @@ This module encapsulates the logic for prompt construction, Azure OpenAI
 API communication, and robust parsing of AI-generated content.
 """
 
-import re
 import logging
 import json
 from app.core.config import get_settings
@@ -42,118 +41,109 @@ class AIPlanner:
     def _parse_ai_response(self, ai_output: str):
         """
         Safely parse the raw string output from the AI into a structured dictionary.
-
-        Args:
-            ai_output (str): The raw JSON string returned by the AI model.
-
-        Returns:
-            dict: A dictionary containing 'summary' and 'phases'.
-                  Returns a fallback structure if parsing fails.
         """
         try:
             data = json.loads(ai_output)
 
             summary = data.get("summary", "")
             phases = data.get("phases", [])
+            # FIXED: Actually extract the recommended tech stack!
+            recommended_tech_stack = data.get("recommended_tech_stack", [])
 
-            return {"summary": summary, "phases": phases}
+            return {
+                "summary": summary,
+                "recommended_tech_stack": recommended_tech_stack,
+                "phases": phases,
+            }
 
         except json.JSONDecodeError as e:
             logging.error(f"JSON parsing failed: {e}")
 
-            return {"summary": "AI returned an invalid response", "phases": []}
+            return {
+                "summary": "AI returned an invalid response",
+                "recommended_tech_stack": [],
+                "phases": [],
+            }
 
+    # FIXED: Indented this entire block by 4 spaces so it belongs to the AIPlanner class
+    def generate_plan(
+        self, project_name: str, description: str, tech_stack: list[str] = None
+    ):
+        """
+        Construct a prompt and call the AI model to generate a project roadmap.
+        """
+        if tech_stack is None:
+            tech_stack = []
 
-def generate_plan(
-    self, project_name: str, description: str, tech_stack: list[str] = None
-):
-    """
-    Construct a prompt and call the AI model to generate a project roadmap.
+        try:
+            # Dynamically handle the tech stack input
+            if len(tech_stack) > 0:
+                stack_context = (
+                    f"Strictly use the following technologies: {', '.join(tech_stack)}"
+                )
+            else:
+                stack_context = "None provided. You must infer the most appropriate, minimal, and lightweight technologies based solely on the project description."
 
-    This method handles the high-level orchestration of the AI request,
-    including prompt engineering and error handling for the API call.
+            # Build the prompt
+            prompt = f""" 
+                You are an expert software architect.
 
-    Args:
-        project_name (str): Name of the project.
-        description (str): Detailed user description of the project goal.
-        tech_stack (list[str], optional): List of technologies to be integrated. Defaults to None.
+                Generate a high-level software project plan based on the user's requirements. 
+                        
+                Project Name: {project_name} 
+                Description: {description} 
+                Tech Stack: {stack_context} 
 
-    Returns:
-        dict: The parsed project plan or a hardcoded fallback if the service fails.
-    """
-    if tech_stack is None:
-        tech_stack = []
+                Instructions:
+                1. If specific technologies are provided, build the architecture and phases around them.
+                2. If no tech stack is provided, deduce the most sensible stack. Do NOT overcomplicate. For example, do not add a backend or database if the description implies a simple static site, CLI tool, or local script.
+                
+                Return the result strictly as JSON in the exact following format:
+                {{
+                    "summary": "2 sentence summary of the project",
+                    "recommended_tech_stack": ["tech 1", "tech 2"],
+                    "phases": [
+                        {{
+                            "name": "Phase name",
+                            "tasks": ["task 1", "task 2"]
+                        }}
+                    ]
+                }}
 
-    try:
-        # Dynamically handle the tech stack input
-        if len(tech_stack) > 0:
-            stack_context = (
-                f"Strictly use the following technologies: {', '.join(tech_stack)}"
+                Do not include any markdown formatting.
+                Do not include explanations.
+                Return valid JSON only.
+                """
+
+            # Call AzureOpenAI chat endpoint
+            response = self.client.chat.completions.create(
+                model=self.deployment_name,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a senior software architect.",
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.7,
+                response_format={"type": "json_object"},
             )
-        else:
-            stack_context = "None provided. You must infer the most appropriate, minimal, and lightweight technologies based solely on the project description."
 
-        # Build the prompt
-        prompt = f""" 
-            You are an expert software architect.
+            ai_output = response.choices[0].message.content
 
-            Generate a high-level software project plan based on the user's requirements. 
-                    
-            Project Name: {project_name} 
-            Description: {description} 
-            Tech Stack: {stack_context} 
+            # Parse the JSON response
+            return self._parse_ai_response(ai_output)
 
-            Instructions:
-            1. If specific technologies are provided, build the architecture and phases around them.
-            2. If no tech stack is provided, deduce the most sensible stack. Do NOT overcomplicate. For example, do not add a backend or database if the description implies a simple static site, CLI tool, or local script.
-            
-            Return the result strictly as JSON in the exact following format:
-            {{
-                "summary": "2 sentence summary of the project",
-                "recommended_tech_stack": ["tech 1", "tech 2"],
+        except Exception as e:
+            # Log error for developers
+            logging.error(f"AIPlanner Error: {e}")
+
+            # Safe fallback response for user
+            return {
+                "summary": "Could not generate plan due to an internal error.",
+                "recommended_tech_stack": [],
                 "phases": [
-                    {{
-                        "name": "Phase name",
-                        "tasks": ["task 1", "task 2"]
-                    }}
-                ]
-            }}
-
-            Do not include any markdown formatting.
-            Do not include explanations.
-            Return valid JSON only.
-            """
-
-        # ... (your existing code to call Azure OpenAI and parse the JSON)
-
-        # Call AzureOpenAI chat endpoint
-        response = self.client.chat.completions.create(
-            model=self.deployment_name,
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a senior software architect.",
-                },
-                {"role": "user", "content": prompt},
-            ],
-            temperature=0.7,
-            response_format={"type": "json_object"},
-        )
-
-        ai_output = response.choices[0].message.content
-
-        # Parse the JSON response
-        return self._parse_ai_response(ai_output)
-
-    except Exception as e:
-        # Log error for developers
-        logging.error(f"AIPlanner Error: {e}")
-
-        # Safe fallback response for user
-        return {
-            "summary": "Could not generate plan due to an internal error.",
-            "phases": [
-                {"name": "Setup", "tasks": ["Investigate connection error"]},
-                {"name": "Development", "tasks": ["Try again later"]},
-            ],
-        }
+                    {"name": "Setup", "tasks": ["Investigate connection error"]},
+                    {"name": "Development", "tasks": ["Try again later"]},
+                ],
+            }
