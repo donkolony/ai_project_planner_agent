@@ -3,6 +3,6 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "env": {
-    "VITE_API_BASE_URL": "@vite_api_base_url"
+    "VITE_API_BASE_URL": "https://ai-project-planner-api-hufwf8agddd4a2h6.southafricanorth-01.azurewebsites.net"
   }
 }
