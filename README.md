@@ -1,3 +1,7 @@
+[![Live Demo](https://img.shields.io/badge/Demo-Video-red?style=for-the-badge&logo=youtube)](YOUR_VIDEO_LINK_HERE)
+[![Frontend](https://img.shields.io/badge/Frontend-Live-blue?style=for-the-badge)](https://ai-project-planner-agent.vercel.app/)
+[![Backend](https://img.shields.io/badge/API-Documentation-green?style=for-the-badge)](https://ai-project-planner-api-hufwf8agddd4a2h6.southafricanorth-01.azurewebsites.net/docs)
+
 # AI Project Planner Agent
 
 An AI-powered assistant that transforms raw project ideas into structured architecture designs, actionable task breakdowns, and clear execution plans to improve project delivery and team coordination.
