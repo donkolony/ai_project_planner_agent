@@ -28,7 +28,7 @@ The **AI Project Planner Agent** solves this by automatically generating:
 
 ### System Flow
 
-User Input -> React/JavaScript Frontend -> FastAPI Backend -> AI Planning Engine -> Structured JSON Output -> Dashboard Rendering
+User Input ➡️ React/JavaScript Frontend ➡️ FastAPI Backend ➡️ AI Planning Engine ➡️ Structured JSON Output ➡️ Dashboard Rendering
 
 ### Core Components
 
