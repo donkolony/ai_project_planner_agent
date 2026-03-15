@@ -4,11 +4,11 @@ import uuid
 
 
 class PlanDB(SQLModel, table=True):
-    # id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True) # change made TODO: DEBUG THIS (uuid.uuid4)
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True) # generates a unique ID Tag
+    id: str = Field(
+        default_factory=lambda: str(uuid.uuid4()), primary_key=True
+    )  # generates a unique ID Tag
     project_name: str
     description: str
-    tech_stack: str  # comma-separated
+    tech_stack: str
     summary: str
-    phases: str      # JSON string
-
+    phases: str

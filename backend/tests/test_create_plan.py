@@ -4,11 +4,12 @@ from app.main import app
 
 client = TestClient(app)
 
+
 def test_create_plan():
     payload = {
         "project_name": "Test Project",
         "description": "Test Description",
-        "tech_stack": ["Python", "FastAPI"]
+        "tech_stack": ["Python", "FastAPI"],
     }
 
     response = client.post("/plan/", json=payload)

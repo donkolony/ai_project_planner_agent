@@ -17,4 +17,3 @@ def test_mock_ai_planner_returns_expected_structure():
     # spot-check the mock content
     assert result["summary"] == "Mock summary"
     assert result["phases"][0]["name"] == "Mock phase 1"
-    

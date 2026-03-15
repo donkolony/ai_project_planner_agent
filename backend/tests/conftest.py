@@ -8,6 +8,7 @@ from app.main import app
 TEST_SQLITE_URL = "sqlite:///./test.db"
 engine = create_engine(TEST_SQLITE_URL, echo=False)
 
+
 # Create tables before tests and drop afterwards
 @pytest.fixture(scope="session", autouse=True)
 def create_test_db():

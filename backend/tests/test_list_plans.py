@@ -6,6 +6,7 @@ from app.models.db_models import PlanDB
 
 client = TestClient(app)
 
+
 def test_list_plans(get_test_session):
     session = get_test_session
 

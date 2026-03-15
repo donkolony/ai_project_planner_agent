@@ -82,7 +82,7 @@ class AIPlanner:
                 ],
                 # max_tokens=1000,
                 temperature=0.7,
-                response_format={"type": "json_object"}
+                response_format={"type": "json_object"},
             )
 
             ai_output = response.choices[0].message.content

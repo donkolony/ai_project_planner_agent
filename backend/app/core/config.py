@@ -13,20 +13,11 @@ class Settings(BaseSettings):
     azure_openai_deployment: str = Field(..., alias="AZURE_OPENAI_DEPLOYMENT")
     azure_openai_api_version: str = Field(..., alias="AZURE_OPENAI_API_VERSION")
 
-    database_url: str = Field(
-        default="sqlite:///./plans.db",
-        alias="DATABASE_URL"
-    )
+    database_url: str = Field(default="sqlite:///./plans.db", alias="DATABASE_URL")
 
-    frontend_url: str = Field(
-        default="http://localhost:5173",
-        alias="FRONTEND_URL"
-    )
+    frontend_url: str = Field(default="http://localhost:5173", alias="FRONTEND_URL")
 
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        case_sensitive=False
-    )
+    model_config = SettingsConfigDict(env_file=".env", case_sensitive=False)
 
 
 @lru_cache
